@@ -2,8 +2,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import HomeScreen from './src/screens/HomeScreen';
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import SignInScreen from './src/screens/SignInScreen';
-import { Provider, useSelector } from 'react-redux';
+import { Provider } from 'react-redux';
+import { auth } from './src/utils/firebase';
 import { store } from './src/store';
+import { useEffect, useState } from 'react';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,20 +26,21 @@ function MainStack() {
 }
 
 function RootNavigaton() {
-  const token = useSelector(state => state.AuthReducers.authToken)
+  const [currUser, setCurrUser] = useState(null);
+
+  const userHandler = user => user ? setCurrUser(user) : setCurrUser(null)
+
+  useEffect(() => auth.onAuthStateChanged(user => userHandler(user)), []);
+
   return (
     <NavigationContainer>
-      {
-        token === null ?
-        <SignUpStack /> : <MainStack />
-      }
+      <>{currUser ? <MainStack /> : <SignUpStack /> }</>
     </NavigationContainer>
   )
 }
 
 
 function App() {
-  console.log('loading screen')
   return (
     <Provider store={store}>
       <RootNavigaton />
