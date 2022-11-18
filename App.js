@@ -12,16 +12,16 @@ const Stack = createNativeStackNavigator();
 function SignUpStack(){
   return (
     <Stack.Navigator>
-        <Stack.Screen name='LogIn' component={SignInScreen} options={{ headerShown: false }} />
-      </Stack.Navigator>
+      <Stack.Screen name='LogIn' component={SignInScreen} options={{ headerShown: false }} />
+    </Stack.Navigator>
   )
 }
 
 function MainStack() {
   return (
     <Stack.Navigator>
-        <Stack.Screen name='Home' component={HomeScreen} />
-      </Stack.Navigator>
+      <Stack.Screen name='Home' component={HomeScreen} />
+    </Stack.Navigator>
   )
 }
 
