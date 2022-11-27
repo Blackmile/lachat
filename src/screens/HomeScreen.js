@@ -1,32 +1,31 @@
-import { View, Text, Button } from 'react-native'
+import { FlatList, Text, View } from 'react-native'
 import React from 'react'
-import { TouchableOpacity } from 'react-native-gesture-handler'
-import { signOut } from 'firebase/auth'
-import { auth } from '../utils/firebase'
-
+import SignoutBtn from '../components/SignoutBtn'
+import Posts from '../components/Posts'
+import { StatusBar } from 'expo-status-bar'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const HomeScreen = () => {
-  const SignOut = async () => {
-      try {
-        await signOut(auth)
-      } catch (error) {
-        console.log(error)
-      }
+
+  const array = [1,2,3,4,5,6,7]
+
+  const renderPost = ({ post, index }) => {
+    return (
+      <Posts />
+    )
   }
 
   return (
-    <View>
-      <Text>HomeScreen</Text>
-      <View style={{marginTop: 20}}>
-            <TouchableOpacity>
-              <Button
-                title='Sign out' 
-                color='black'
-                onPress={SignOut}
-              />
-            </TouchableOpacity>
-      </View>
-    </View>
+    <SafeAreaView>
+      <StatusBar />
+      <FlatList
+        data={array}
+        renderItem={renderPost}
+        keyExtractor={post => post}
+        decelerationRate={'normal'}
+      />
+      {/* drawer navigation */}
+    </SafeAreaView>
   )
 }
 
