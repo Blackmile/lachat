@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import { auth } from './src/utils/firebase';
 import { store } from './src/store';
 import { useEffect, useState } from 'react';
+import { StatusBar } from 'expo-status-bar';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,7 +21,7 @@ function SignUpStack(){
 function MainStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen name='Home' component={HomeScreen} />
+      <Stack.Screen name='Home' component={HomeScreen} options={{ headerShown: false }} />
     </Stack.Navigator>
   )
 }
